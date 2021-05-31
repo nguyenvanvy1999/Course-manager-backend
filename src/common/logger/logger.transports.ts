@@ -2,15 +2,15 @@ import { transports, format } from 'winston';
 import { utilities } from 'nest-winston';
 import winstonDaily from 'winston-daily-rotate-file';
 import { logDir } from './logger.const';
-const { combine, timestamp, simple, ms } = format;
+const { combine, timestamp, simple, ms, json } = format;
 
 export const winstonTransport = [
   process.env.NODE_ENV === 'development'
     ? new transports.Console({
-        format: combine(timestamp(), ms(), simple()),
+        format: combine(timestamp(), ms(), utilities.format.nestLike()),
       })
     : new transports.Console({
-        format: combine(timestamp(), format.ms(), utilities.format.nestLike()),
+        format: combine(timestamp(), ms(), simple(), json()),
       }),
   new winstonDaily({
     level: 'info',

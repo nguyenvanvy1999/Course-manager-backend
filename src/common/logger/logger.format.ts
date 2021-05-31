@@ -7,22 +7,18 @@ const logFormat = printf(
 );
 
 export function getFormat() {
-  if (process.env.NODE_ENV === 'production')
-    return combine(
-      timestamp({
-        format: 'YYYY-MM-DD HH:mm:ss',
-      }),
-      json(),
-      ms(),
-      logFormat,
-    );
-  return combine(
-    timestamp({
-      format: 'YYYY-MM-DD HH:mm:ss',
-    }),
-    logFormat,
-    colorize(),
-    ms(),
-    simple(),
-  );
+  return process.env.NODE_ENV === 'development'
+    ? combine(
+        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        json(),
+        ms(),
+        logFormat,
+      )
+    : combine(
+        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        logFormat,
+        colorize(),
+        ms(),
+        simple(),
+      );
 }
