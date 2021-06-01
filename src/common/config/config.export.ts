@@ -10,7 +10,6 @@ class ConfigService {
     if (!value && throwOnMissing) {
       throw new Error(`config error - missing env.${key}`);
     }
-
     return value;
   }
 
@@ -19,13 +18,24 @@ class ConfigService {
     return this;
   }
 
-  public getPort() {
-    return this.getValue('PORT', true);
+  get host(): string {
+    return this.getValue('HOST', true);
   }
 
-  public isProduction() {
-    const mode = this.getValue('NODE_ENV', false);
-    return mode != 'development';
+  get port(): number {
+    return parseInt(this.getValue('PORT', true));
+  }
+
+  get nodeEnv(): string {
+    return this.getValue('NODE_ENV', true);
+  }
+
+  public isProduction(): boolean {
+    return this.getValue('NODE_ENV', false) === 'production';
+  }
+
+  public isDevelopment(): boolean {
+    return this.getValue('NODE_ENV', false) === 'development';
   }
 
   public getTypeOrmConfig(): TypeOrmModuleOptions {

@@ -9,6 +9,7 @@ import helmet from 'helmet';
 import path from 'path';
 import favicon from 'serve-favicon';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { configService } from './common/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger: AppLogger });
@@ -55,25 +56,18 @@ function initSwagger(app: INestApplication) {
 
 function initGlobal(app: INestApplication) {
   app.useGlobalPipes(new ValidationPipe());
-  // app.useGlobalInterceptors(new LogInterceptor());
   app.useGlobalFilters(new HttpExceptionsFilter());
 }
 
 function log() {
-  const port = process.env.PORT;
-  const host = process.env.HOST;
-  const env = process.env.NODE_ENV;
-  const roomGateway = process.env.ROOM_PORT;
-  const deviceGateway = process.env.DEVICE_PORT;
+  const { port, host, nodeEnv } = configService;
   console.log('');
   console.log('');
-  console.log(`Nest Server ready and running on ${host}:${port}`);
   console.log(``);
   console.log(`-------------------------------------------------------`);
-  console.log(`Environment     : ${env}`);
-  console.log(`Swagger         : ${host}:${port}/apis`);
-  console.log(`RoomGateway     : ${roomGateway}`);
-  console.log(`DeviceGateway   : ${deviceGateway}`);
+  console.log(`Server        : ${host}:${port}`);
+  console.log(`Environment   : ${nodeEnv}`);
+  console.log(`Swagger       : ${host}:${port}/apis`);
   console.log(`-------------------------------------------------------`);
   console.log(``);
 }
