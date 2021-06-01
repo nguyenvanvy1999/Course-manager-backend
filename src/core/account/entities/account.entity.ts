@@ -1,9 +1,10 @@
 import { BaseEntity } from 'src/core/base/entities';
 import { User } from 'src/core/user/entities';
 import { Column, Entity, OneToOne } from 'typeorm';
+import { IAccount } from '../interfaces';
 
 @Entity('Accounts')
-export class Account extends BaseEntity {
+export class Account extends BaseEntity implements IAccount {
   @Column({ type: 'varchar', length: 20, unique: true })
   username: string;
 
