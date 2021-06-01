@@ -2,10 +2,11 @@ import { transports, format } from 'winston';
 import { utilities } from 'nest-winston';
 import winstonDaily from 'winston-daily-rotate-file';
 import { logDir } from './logger.const';
+import { configService } from '../config';
 const { combine, timestamp, simple, ms, json } = format;
 
 export const winstonTransport = [
-  process.env.NODE_ENV === 'development'
+  configService.isDevelopment()
     ? new transports.Console({
         format: combine(timestamp(), ms(), utilities.format.nestLike()),
       })
@@ -13,32 +14,15 @@ export const winstonTransport = [
         format: combine(timestamp(), ms(), simple(), json()),
       }),
   new winstonDaily({
-    level: 'info',
+    filename: 'logs/application-%DATE%.log',
     datePattern: 'YYYY-MM-DD',
-    dirname: logDir + '/info',
-    filename: `%DATE%.info.log`,
-    maxFiles: 30,
-    json: true,
     zippedArchive: true,
+    handleExceptions: true,
+    maxSize: '20m',
+    maxFiles: 30,
   }),
-  new winstonDaily({
+  new transports.File({
+    filename: 'logs/error.log',
     level: 'error',
-    datePattern: 'YYYY-MM-DD',
-    dirname: logDir + '/error',
-    filename: `%DATE%.error.log`,
-    maxFiles: 30,
-    handleExceptions: true,
-    json: true,
-    zippedArchive: true,
-  }),
-  new winstonDaily({
-    level: 'http',
-    datePattern: 'YYYY-MM-DD',
-    dirname: logDir + '/http',
-    filename: `%DATE%.http.log`,
-    maxFiles: 30,
-    handleExceptions: true,
-    json: true,
-    zippedArchive: true,
   }),
 ];

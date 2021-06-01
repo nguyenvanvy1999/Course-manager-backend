@@ -1,4 +1,5 @@
 import { format } from 'winston';
+import { configService } from '../config';
 
 const { printf, combine, json, timestamp, simple, colorize, ms } = format;
 
@@ -7,7 +8,7 @@ const logFormat = printf(
 );
 
 export function getFormat() {
-  return process.env.NODE_ENV === 'development'
+  return configService.isDevelopment()
     ? combine(
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         json(),
