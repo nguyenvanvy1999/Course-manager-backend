@@ -24,8 +24,8 @@ class ConfigService {
   }
 
   public isProduction() {
-    const mode = this.getValue('MODE', false);
-    return mode != 'DEV';
+    const mode = this.getValue('NODE_ENV', false);
+    return mode != 'development';
   }
 
   public getTypeOrmConfig(): TypeOrmModuleOptions {
@@ -37,8 +37,9 @@ class ConfigService {
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
       entities: [
-        join(__dirname, '../', '**', '*.entity.{ts,js}'),
-        join(__dirname, '../', '**', 'model.{ts,js}'),
+        join(__dirname, '../../core', '**', '*.entity.{ts,js}'),
+        join(__dirname, '../../core', '**', 'model.{ts,js}'),
+        join(__dirname, '../../core', '**', '.model.{ts,js}'),
       ],
       migrationsTableName: 'migration',
       migrations: [join(__dirname, '../migration', '*.{ts,js}')],
