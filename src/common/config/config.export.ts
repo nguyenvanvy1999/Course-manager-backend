@@ -28,16 +28,16 @@ class ConfigService {
     return this.getValue('NODE_ENV', true);
   }
 
+  get mongoUri(): string {
+    return this.getValue('MONGO_URI');
+  }
+
   public isProduction(): boolean {
     return this.getValue('NODE_ENV', false) === 'production';
   }
 
   public isDevelopment(): boolean {
     return this.getValue('NODE_ENV', false) === 'development';
-  }
-
-  public getMongoConfig() {
-    return { host: 'localhost', port: 27017 };
   }
 
   public getJwtConfig(): JwtConfigInterface {

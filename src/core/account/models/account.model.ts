@@ -7,7 +7,7 @@ import { IAccount } from '../interfaces';
 export type AccountDocument = Account & Document;
 @Schema(schemaOption)
 export class Account extends Base implements IAccount {
-  @Prop({ type: String, required: true, trim: true })
+  @Prop({ type: String, required: true, trim: true, unique: true })
   username: string;
 
   @Prop({ type: String, required: true, min: 5 })

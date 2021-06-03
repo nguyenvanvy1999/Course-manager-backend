@@ -60,7 +60,7 @@ function initGlobal(app: INestApplication) {
 }
 
 function log() {
-  const { port, host, nodeEnv } = configService;
+  const { port, host, nodeEnv, mongoUri } = configService;
   console.log('');
   console.log('');
   console.log(``);
@@ -68,6 +68,7 @@ function log() {
   console.log(`Server        : ${host}:${port}`);
   console.log(`Environment   : ${nodeEnv}`);
   console.log(`Swagger       : ${host}:${port}/apis`);
+  console.log(`Mongo         : ${mongoUri}`);
   console.log(`-------------------------------------------------------`);
   console.log(``);
 }
