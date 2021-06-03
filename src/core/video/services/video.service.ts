@@ -2,12 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Video, VideoDocument } from '../models';
-import {
-  CACHE_MANAGER,
-  Inject,
-  Logger,
-  NotFoundException,
-} from '@nestjs/common';
+import { CACHE_MANAGER, Inject, NotFoundException } from '@nestjs/common';
 import { VideoCreationDTO, VideoUpdateDTO } from '../dtos';
 import { Cache } from 'cache-manager';
 import fs from 'fs';

@@ -10,6 +10,6 @@ import { VideoService } from './services';
   ],
   providers: [VideoService, { provide: CACHE_MANAGER, useClass: CacheModule }],
   controllers: [VideoController],
-  exports: [VideoService],
+  // exports: [VideoService],
 })
 export class VideoModule {}
