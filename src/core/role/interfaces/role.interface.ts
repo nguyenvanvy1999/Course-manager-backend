@@ -1,7 +1,7 @@
-import { IUser } from 'src/core/user/interfaces';
+import { Types } from 'mongoose';
 
 export interface IRole {
-  id: string;
+  _id: Types.ObjectId;
   name: string;
-  users: IUser[];
+  users: Types.ObjectId[];
 }

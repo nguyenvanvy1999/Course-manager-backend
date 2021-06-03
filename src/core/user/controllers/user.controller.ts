@@ -1,9 +1,8 @@
-import { BadRequestException, Controller, Get, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { BadRequestException, Get } from '@nestjs/common';
+import { ControllerInit } from 'src/decorators';
 import { UserService } from '../services';
 
-@Controller('user')
-@ApiTags('user')
+@ControllerInit('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

@@ -1,3 +1,5 @@
+import { Types } from 'mongoose';
+
 export interface IMod {
-  id: string;
+  _id: Types.ObjectId;
 }

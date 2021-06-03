@@ -3,7 +3,7 @@ import { Types, Document } from 'mongoose';
 import { IBase } from '../interfaces';
 
 @Schema()
-export abstract class BaseModel extends Document implements IBase {
+export abstract class Base extends Document implements IBase {
   @Prop({ type: Types.ObjectId })
   _id: Types.ObjectId;
 

@@ -1,8 +1,8 @@
-import { IUser } from 'src/core/user/interfaces';
+import { Types } from 'mongoose';
 
 export interface IAccount {
-  id: string;
+  _id: Types.ObjectId;
   username: string;
   password: string;
-  user: IUser;
+  user: Types.ObjectId;
 }

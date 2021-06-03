@@ -1,3 +1,5 @@
+import { Types } from 'mongoose';
+
 export interface ISupporter {
-  id: string;
+  _id: Types.ObjectId;
 }

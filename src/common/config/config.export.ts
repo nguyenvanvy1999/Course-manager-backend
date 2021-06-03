@@ -1,5 +1,3 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { join } from 'path';
 import 'dotenv/config';
 import { JwtConfigInterface } from './interfaces';
 
@@ -38,26 +36,8 @@ class ConfigService {
     return this.getValue('NODE_ENV', false) === 'development';
   }
 
-  public getTypeOrmConfig(): TypeOrmModuleOptions {
-    return {
-      type: 'postgres',
-      host: this.getValue('POSTGRES_HOST'),
-      port: parseInt(this.getValue('POSTGRES_PORT')),
-      username: this.getValue('POSTGRES_USER'),
-      password: this.getValue('POSTGRES_PASSWORD'),
-      database: this.getValue('POSTGRES_DATABASE'),
-      entities: [
-        join(__dirname, '../../core', '**', '*.entity.{ts,js}'),
-        join(__dirname, '../../core', '**', 'model.{ts,js}'),
-        join(__dirname, '../../core', '**', '.model.{ts,js}'),
-      ],
-      migrationsTableName: 'migration',
-      migrations: [join(__dirname, '../migration', '*.{ts,js}')],
-      cli: {
-        migrationsDir: 'src/migration',
-      },
-      ssl: this.isProduction(),
-    };
+  public getMongoConfig() {
+    return { host: 'localhost', port: 27017 };
   }
 
   public getJwtConfig(): JwtConfigInterface {
@@ -68,12 +48,4 @@ class ConfigService {
   }
 }
 
-const configService = new ConfigService(process.env).ensureValues([
-  'POSTGRES_HOST',
-  'POSTGRES_PORT',
-  'POSTGRES_USER',
-  'POSTGRES_PASSWORD',
-  'POSTGRES_DATABASE',
-]);
-
-export { configService };
+export const configService = new ConfigService(process.env).ensureValues([]);
