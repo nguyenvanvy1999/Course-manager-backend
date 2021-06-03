@@ -14,8 +14,7 @@ export class ErrorRes {
     type: String,
     required: true,
     format: 'date-time',
-    pattern: '/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/',
-    default: Date.now(),
+    default: new Date().toLocaleString(),
   })
   readonly timestamp: string;
 
