@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 
 export const CheckArrayMongoId = (minSize?: number, maxSize?: number) => {
-  const _ = [IsArray(), Type(() => IsMongoId)];
+  const _ = [IsArray(), Type(() => IsMongoId())];
   minSize && _.push(ArrayMinSize(minSize));
   maxSize && _.push(ArrayMaxSize(maxSize));
   return applyDecorators(..._);

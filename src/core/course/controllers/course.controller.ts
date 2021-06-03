@@ -1,10 +1,11 @@
 import { Body, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { isMongoId } from 'class-validator';
 import { ApiInit, ControllerInit } from 'src/decorators';
 import { CourseCreateDTO, CourseUpdateDTO } from '../dtos';
 import { Course } from '../models';
 import { CourseService } from '../services';
 
-@ControllerInit('course')
+@ControllerInit('courses')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 

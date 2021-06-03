@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsUrl } from 'class-validator';
-import { CheckString } from 'src/decorators';
+import { CheckArrayMongoId, CheckString } from 'src/decorators';
 
 export class CourseCreateDTO {
   @ApiProperty({
@@ -31,6 +31,11 @@ export class CourseCreateDTO {
   @IsUrl()
   readonly thumbnailUrl: string;
 
-  @ApiProperty({ description: 'Videos of course', required: false })
+  @ApiProperty({
+    description: 'Videos of course',
+    required: false,
+    type: [String],
+  })
+  @CheckArrayMongoId(1)
   readonly videos: string[];
 }
