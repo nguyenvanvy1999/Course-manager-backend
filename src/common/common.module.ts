@@ -4,6 +4,5 @@ import { MongoModule } from './mongo';
 
 @Module({
   imports: [MongoModule, AppConfigModule],
-  exports: [MongoModule, AppConfigModule],
 })
 export class CommonModule {}
