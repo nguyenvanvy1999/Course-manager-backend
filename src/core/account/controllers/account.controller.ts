@@ -12,7 +12,7 @@ export class AccountController {
   @ApiInit('Create new account', Account)
   public async newAccount(@Body() data: AccountCreateDTO): Promise<Account> {
     try {
-      return await this.accountService.newAccount(data);
+      return await this.accountService.create(data);
     } catch (error) {
       throw error;
     }
@@ -45,7 +45,7 @@ export class AccountController {
     @Body() update: AccountUpdateDTO,
   ): Promise<Account> {
     try {
-      return await this.accountService.updateAccount(id, update);
+      return await this.accountService.update(id, update);
     } catch (error) {
       throw error;
     }
@@ -55,7 +55,7 @@ export class AccountController {
   @ApiInit('Delete account by id', Account)
   public async deleteAccount(@Param('id') id: string): Promise<Account> {
     try {
-      return await this.accountService.removeAccount(id);
+      return await this.accountService.remove(id);
     } catch (error) {
       throw error;
     }

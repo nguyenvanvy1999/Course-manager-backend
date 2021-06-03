@@ -16,7 +16,7 @@ export class AccountService {
     private readonly accountModel: Model<AccountDocument>,
   ) {}
 
-  public async newAccount(account: AccountCreateDTO): Promise<Account> {
+  public async create(account: AccountCreateDTO): Promise<Account> {
     try {
       const newAccount = new this.accountModel({
         _id: ObjectId(),
@@ -46,10 +46,7 @@ export class AccountService {
     }
   }
 
-  public async updateAccount(
-    id: string,
-    update: AccountUpdateDTO,
-  ): Promise<Account> {
+  public async update(id: string, update: AccountUpdateDTO): Promise<Account> {
     try {
       return await this.accountModel.findOneAndUpdate(
         { _id: ObjectId(id) },
@@ -61,7 +58,7 @@ export class AccountService {
     }
   }
 
-  public async removeAccount(id: string): Promise<Account> {
+  public async remove(id: string): Promise<Account> {
     try {
       return await this.accountModel.findOneAndDelete({ _id: ObjectId(id) });
     } catch (error) {

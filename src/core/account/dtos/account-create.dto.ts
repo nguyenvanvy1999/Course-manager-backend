@@ -11,7 +11,13 @@ export class AccountCreateDTO {
   @CheckString()
   readonly username: string;
 
-  @ApiProperty({ type: String, required: true, description: 'Password' })
-  @CheckString()
+  @ApiProperty({
+    type: String,
+    required: true,
+    description: 'Password',
+    default: 'Password',
+    minLength: 5,
+  })
+  @CheckString(true, 5)
   readonly password: string;
 }
