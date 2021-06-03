@@ -1,6 +1,6 @@
-import { Body, Get, Param, Post } from '@nestjs/common';
+import { Body, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiInit, ControllerInit } from 'src/decorators';
-import { AccountCreateDTO } from '../dtos';
+import { AccountCreateDTO, AccountUpdateDTO } from '../dtos';
 import { Account } from '../models/account.model';
 import { AccountService } from '../services';
 
@@ -29,9 +29,33 @@ export class AccountController {
   }
 
   @Get(':id')
+  @ApiInit('Get account by id', Account)
   public async findById(@Param('id') id: string): Promise<Account> {
     try {
       return await this.accountService.findById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Patch(':id')
+  @ApiInit('Update account by id', Account)
+  public async updateAccount(
+    @Param('id') id: string,
+    @Body() update: AccountUpdateDTO,
+  ): Promise<Account> {
+    try {
+      return await this.accountService.updateAccount(id, update);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Delete(':id')
+  @ApiInit('Delete account by id', Account)
+  public async deleteAccount(@Param('id') id: string): Promise<Account> {
+    try {
+      return await this.accountService.removeAccount(id);
     } catch (error) {
       throw error;
     }

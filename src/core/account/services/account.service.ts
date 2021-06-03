@@ -6,8 +6,8 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ObjectId } from 'src/core/base/tools';
-import { AccountCreateDTO } from '../dtos';
-import { Account, AccountDocument } from '../models/account.model';
+import { AccountCreateDTO, AccountUpdateDTO } from '../dtos';
+import { Account, AccountDocument } from '../models';
 
 @Injectable()
 export class AccountService {
@@ -29,11 +29,10 @@ export class AccountService {
     }
   }
 
-  public async findById(_id: string): Promise<Account> {
+  public async findById(id: string): Promise<Account> {
     try {
-      const account = await this.accountModel.findOne({ _id });
-      if (!account)
-        throw new NotFoundException(`Account with ${_id} not found`);
+      const account = await this.accountModel.findOne({ _id: ObjectId(id) });
+      if (!account) throw new NotFoundException(`Account with ${id} not found`);
       return account;
     } catch (error) {
       throw new InternalServerErrorException(error);
@@ -42,6 +41,29 @@ export class AccountService {
   public async findAll(): Promise<Account[]> {
     try {
       return await this.accountModel.find({});
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  public async updateAccount(
+    id: string,
+    update: AccountUpdateDTO,
+  ): Promise<Account> {
+    try {
+      return await this.accountModel.findOneAndUpdate(
+        { _id: ObjectId(id) },
+        { ...update },
+        { new: true },
+      );
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  public async removeAccount(id: string): Promise<Account> {
+    try {
+      return await this.accountModel.findOneAndDelete({ _id: ObjectId(id) });
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
