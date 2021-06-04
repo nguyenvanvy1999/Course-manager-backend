@@ -1,5 +1,4 @@
 import { Body, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { isMongoId } from 'class-validator';
 import { ApiInit, ControllerInit } from 'src/decorators';
 import { CourseCreateDTO, CourseUpdateDTO } from '../dtos';
 import { Course } from '../models';
